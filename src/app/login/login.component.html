@@ -1,0 +1,69 @@
+<div class="container">
+  <div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+      
+    <div 
+    *ngIf = "loadingProcess"
+    this.menuDropdown = false;
+    class="loaderScreen">
+        <div style="height:35%"></div>
+        <div class="lds-ripple"><div></div><div></div></div>
+        <p>{{loadingMessage}}</p>
+    </div>
+        <br>
+         <div class="row" >
+           <article class="l-design-widht">
+             <!--<div class="card card--inverted">-->
+              <div class="box" style="align-self: center;">
+               <h2 style="margin-top: -10px;">
+                <img src="../assets/images/LOGIN_ICON.png"
+                style="width:45px;align-self: center; color: white;margin-right: 15px; margin-top: -10px;"
+              />Login
+               </h2>
+               <label class="input">
+                 <input
+                   class="input__field"
+                   type="text"
+                   placeholder="Enter Username"
+                   [(ngModel)]="username"
+                 />
+               </label>
+               <br>
+               <label class="input">
+                <input
+                  class="input__field"
+                  type="password"
+                  placeholder="Password"
+                  [(ngModel)]="password"
+                 
+                />
+              </label>
+             <div class="button-group">
+                 <button (click)="userLogin()">Login</button>
+                 <button style="background-color: white; color: black;" type="reset" routerLink="/Registration">Registration</button>
+               </div>
+               <span routerLink="/Forgotpass">Forgot Password</span>
+               <br>
+               <span style="color:red">{{error_message}}</span>
+             </div>
+           </article>
+         </div>
+          <br />
+       </div>
+  </div>
+  </div>
+
+
+

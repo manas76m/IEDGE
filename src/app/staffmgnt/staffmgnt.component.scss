@@ -1,0 +1,64 @@
+.container{ 
+    margin-top:0px;
+    padding: 0;
+    background: url('../../assets/images/back.png') no-repeat center center fixed; 
+    background-size: cover;
+   // height: 600vh;
+}
+div {
+    text-align: center;
+    // background: #fdfdfd;
+    
+    button {
+      // border-radius: 50%;
+      // height: 60px;
+      // width: 60px;
+      margin: 10px;
+      &disabled {
+        cursor: no-drop;
+      }
+    }
+  
+    .data {
+      background: antiquewhite;
+      border-radius: 5px;
+    }
+  }
+.button-group {
+    margin-top: calc(var(--size-bezel) * 2.5);
+    text-align: left;
+  }
+  
+  button {
+    font-family:'Trebuchet MS';
+    width: 160px;
+    padding: 10px;
+    background: rgb(211, 231, 32);
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .Infi_button {
+    button {
+     //color: currentColor;
+     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     width: 130px;
+     padding: 10px;
+     //padding: var(--size-bezel) calc(var(--size-bezel) * 2);
+     //background: var(--color-accent);
+     background: orange;
+     border: none;
+     //border-radius: var(--size-radius);
+     border-radius: 8px;
+     font-size: 15px;
+     font-weight: bold;
+     
+     &[type=reset]{
+       font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+       background: var(--color-background);
+       font-weight: bold;
+     } 
+    }
+  }

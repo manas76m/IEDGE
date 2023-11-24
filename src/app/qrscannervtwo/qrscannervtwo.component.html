@@ -1,0 +1,210 @@
+<div class="loaderScreen" *ngIf="syncData">
+    <div style="height:35%"></div>
+    <div class="lds-ripple"><div></div><div></div></div>
+    <p>loading ...</p>
+</div>
+
+<span (click)="syncLink()" style="position:fixed;z-index: 1;bottom:1px;background-color: black;">
+  <img src="../../assets/images/sync.svg" style="height:30px;width: 30px;"></span>
+
+
+<!-- <h1   >
+  {{item.ID}}<span (click)="removeFromCart(i)">c</span>
+ </h1> -->
+
+<div class="container">
+  <br />
+  <div class="row">
+    <article class="l-design-widht">
+      <!-- <div class="card">
+           <h2><svg class="icon" aria-hidden="true">
+             <use xlink:href="#icon-coffee" href="#icon-coffee" /></svg>Regular</h2>
+           <label class="input">
+             <input class="input__field" type="text" placeholder=" " />
+             <span class="input__label">Some Fancy Label</span>
+           </label>
+           <div class="button-group">
+             <button>Send</button>
+             <button type="reset">Reset</button>
+           </div>
+         </div> -->
+       
+
+      <div class="card card--inverted">
+        <h2>
+          <img src="../assets/images/QRCODE.png"
+            style="width:30px;align-self: center; color: white;margin-right: 10px; margin-top: 0px;"
+          />Enter Code 
+          <!--<svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-coffee" href="#icon-coffee" />
+          </svg>Enter Code--> 
+        </h2>
+        <label class="input">
+          <input class="input__field" type="text" placeholder="Code or Scan " value="Enter Bardcode"
+            [(ngModel)]="scannerValue" style="text-transform: uppercase" />
+          <!-- <span class="input__label">Code or Scan</span> -->
+        </label>
+
+        <div class="button-group">
+          <button (click)="getInputValueforScanner(scannerValue)">Enter</button>
+          <button style="background-color: white; color: black" *ngIf="!showScanner" 
+          (click)="showScannerController()"
+            type="reset">
+            Scan
+          </button>
+          <button style="background-color: white" *ngIf="showScanner" (click)="showScannerController()" type="reset">
+            <img src="assets/images/camera-off.svg" height="12px" />
+          </button>
+                  
+        
+        </div>
+      </div>
+     
+    </article>
+
+    <svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+      <symbol id="icon-coffee" viewBox="0 0 20 20">
+        <title>icon-coffee</title>
+        <path fill="currentColor"
+          d="M15,17H14V9h3a3,3,0,0,1,3,3h0A5,5,0,0,1,15,17Zm1-6v3.83A3,3,0,0,0,18,12a1,1,0,0,0-1-1Z" />
+        <rect fill="currentColor" x="1" y="7" width="15" height="12" rx="3" ry="3" />
+        <path fill="var(--color-accent)"
+          d="M7.07,5.42a5.45,5.45,0,0,1,0-4.85,1,1,0,0,1,1.79.89,3.44,3.44,0,0,0,0,3.06,1,1,0,0,1-1.79.89Z" />
+        <path fill="var(--color-accent)"
+          d="M3.07,5.42a5.45,5.45,0,0,1,0-4.85,1,1,0,0,1,1.79.89,3.44,3.44,0,0,0,0,3.06,1,1,0,1,1-1.79.89Z" />
+        <path fill="var(--color-accent)"
+          d="M11.07,5.42a5.45,5.45,0,0,1,0-4.85,1,1,0,0,1,1.79.89,3.44,3.44,0,0,0,0,3.06,1,1,0,1,1-1.79.89Z" />
+      </symbol>
+    </svg>
+  </div>
+  <br />
+  <!-- ngx-scanner-qrcode -->
+  <div *ngIf="showScanner">
+    <ngx-scanner-qrcode  class="scanner" #action="scanner" [config]="config" (event)="onEvent($event, action)"></ngx-scanner-qrcode>
+
+    <br />
+
+    <!-- data  -->
+    <!-- <p class="data">{{ action.data | async }}</p> -->
+
+    <!-- loading -->
+    <p *ngIf="action.isLoading">⌛ Loading...</p>
+
+    <!-- start/stop -->
+    <button class="btn" [class.btn-info]="!action.isStart" [class.btn-warning]="action.isStart"
+      [disabled]="action.isLoading">
+      <img *ngIf="!action.isStart" (click)="handle(action, 'start')" src="assets/images/camera-on.svg" width="30px" />
+      <img *ngIf="action.isStart" (click)="handle(action, 'stop')" src="assets/images/camera-off.svg" width="30px" />
+    </button>
+
+    <br>
+
+  <!-- for select files -->
+  <!-- <input #file type="file" (change)="onSelects(file.files)" [multiple]="'multiple'" [accept]="'.jpg, .png, .gif, .jpeg'" class="btn btn-success my-2"/> -->
+  <br>
+  <!-- <input #file2 type="file" (change)="onSelects2(file2.files)" [multiple]="'multiple'" [accept]="'.jpg, .png, .gif, .jpeg'" class="btn btn-success my-2"/> -->
+  <button  (click)="scannerOptima()">Advance Scanner</button>
+  <br>
+
+
+  </div>
+  <div *ngIf="info_pop_up" class="info-pop-up">
+    <div>
+    <table class="tableBH" *ngIf="!info_pop_up_data_not_found" style="width: 100%;">
+      <tr style="margin-bottom: 8px; border-bottom: 2px;">
+        <td style="width: 34%;">BARCODE NO:</td>
+        <td style="width: 40%; text-align: left; padding-left: 5PX;">{{stockList.BARCODE}}</td>
+        <td style="width: 26%;">{{this.stockList.DISCGROSS_VALUE}}</td>
+      </tr>
+    </table>
+  </div>
+      <table class="tableBC" *ngIf="!info_pop_up_data_not_found" style="width: 100%;">
+      <tr>
+        <th>Metal Type</th>
+        <th>Item Category</th>
+        <th>Item Description</th>
+      </tr>
+      <tr>
+        <td>{{ stockList.MET_TYPE }}</td>
+        <td>{{ stockList.ITEM_CAT }}</td>
+        <td>{{ stockList.ITEM_NAME }}</td>
+      </tr>
+      <tr>
+        <th>Purity</th>
+        <th>Gross Wt(gm)</th>
+        <th>Net Wt(gm)</th>
+      </tr>
+      <tr>
+        <td>{{ stockList.MET_PUR }}</td>
+        <td>{{ stockList.GRWT }}</td>
+        <td>{{ stockList.NETWT }}</td>
+      </tr>
+      <tr>
+        <th>Metal Rate/gm</th>
+        <th>Metal Value</th>
+        <th>MC Rate/gm</th>
+      </tr>
+      <tr>
+        <td>{{ stockList.METAL_PRICE }}</td>
+        <td>{{ stockList.METAL_TOTAL_VALUE }}</td>
+        <td>{{ stockList.MAKING_RATE }}</td>
+      </tr>
+      <tr>
+        <th>Making Chgs</th>
+        <th>Other Chgs</th>
+        <th>Net Value</th>
+      </tr>
+      <tr>
+        <td>{{ stockList.MAKING_CHARGES}}</td>
+        <td>{{ stockList.OT_CHGS }}</td>
+        <td>{{ stockList.NET_VALUE }}</td>
+      </tr>
+      <tr>
+        <th>SGST @ 1.5%</th>
+        <th>CGST @ 1.5%</th>
+        <th>IGST @ 3.0%</th>
+      </tr>
+      <tr>
+        <td>{{ stockList.CGST  }}</td>
+        <td>{{ stockList.SGST  }}</td>
+        <td>0</td>
+      </tr>
+    </table>
+    <table class="tableSC" *ngIf="!info_pop_up_data_not_found" style="width: 100%">
+      <tr>
+        <td style="width: 45%;">GROSS VALUE</td>
+        <td><input type="number" [disabled]="true"
+          style="background-color: khaki; color: black;border: none;font-size: 20px;font-weight: bold; height: 25px; width: 170px;"  
+          [(ngModel)]="stockList.GROSS_VALUE" /></td>
+      </tr>
+    </table>
+    <table class="tableSC" *ngIf="!info_pop_up_data_not_found" style="width: 100%">
+      <tr>
+        <td style="width: 45%;">SALE VALUE</td>
+        <td [style.background-color]="colorBtnBg"><input type="number" type="number" 
+          [style.background-color]="colorBtnBg"
+          style="background-color:rgba(39, 39, 38, 0.988); color: white;border: none;font-size: 20px;font-weight: bold; height: 25px; width: 170px;" (keyup)="dynamciCalc()" [(ngModel)]="discountValue" /></td>
+      </tr>
+    </table>
+        <table style="border: none; background-color: transparent !important;" *ngIf="!info_pop_up_data_not_found">
+        <tr>
+          <td class="tableBT" style="width: 150px !important; height: 20px; background-color: rgb(252, 211, 171) !important;">
+            <button style="margin-right: 50px; width: 150;" (click)="infoPopupClose()">
+              Close
+            </button>
+         <!--</td>
+       <td class="tableBT" style="width: 150px; height: 20px; background-color: rgb(252, 211, 171) !important;">-->
+            <button style="width: 150px !important;"  [style.background-color]="colorBtnBg" *ngIf="enableCart()" 
+            [disabled]="addButton" (click)="addToCart(stockList)" (click)="infoPopupClose()">
+              Add to Cart
+            </button>
+          </td>
+        </tr>
+     </table>
+    <table *ngIf="info_pop_up_data_not_found" style="width: 100%">
+      <tr>
+        <td>No info found!</td>
+      </tr>
+    </table>
+  </div>
+</div>

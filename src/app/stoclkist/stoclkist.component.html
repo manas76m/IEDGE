@@ -1,0 +1,41 @@
+<div 
+*ngIf = "loadingProcess"
+class="loaderScreen">
+    <div style="height:35%"></div>
+    <div class="lds-ripple"><div></div><div></div></div>
+    <p>Testing your device memory .... this page is linking your device ram and storge please hold..</p>
+</div>
+
+<span (click)="syncLink()" style="position:fixed;z-index: 1;bottom:1px;background-color: black;">
+    <img src="../../assets/images/sync.svg" style="height:30px;width: 30px;"></span>
+
+<div class="metal-rate-body-div">
+    <span style="font-size: 15px; font-weight: bold;">TOTAL RECORD  {{resultCount}}</span>
+         <div class="dropdown">
+            <input  type="text" placeholder="SEARCH PART NO." [(ngModel)]="searchText" (keyup)="filterResults(searchText)">
+          </div>
+   
+   <div *ngIf = "!loadingProcess" class="table-header">
+        <span style="font-size: 16px;position: relative; top:7px; margin-top: 5px;height: 40px;">STOCK LIST</span> 
+    </div>
+   
+   <table style="margin-top: 5px;" *ngIf = "!loadingProcess">
+    <tr>
+        <th class="thl" style="border: 0  !important;">Part No</th>
+        <th class="thl" style="border: 0  !important;">Item Description</th>
+        <th class="thm" style="border: 0  !important;">Stock Qnty</th>
+        <th class="thr">MRP</th>
+    </tr>
+    <tr *ngFor="let makingDetails of filteredLocationList">
+        <td class="trl">{{makingDetails.PROD_CODE}}</td>
+        <td class="trl">{{makingDetails.PROD_NAME}}</td>
+        <td class="trm">{{makingDetails.STK_QN}}</td>       
+        <td class="trr">{{makingDetails.MRP}}</td>
+    </tr>
+   </table>
+   <table *ngIf="error_screen">
+    <tr>
+        <td>NO DATA AVAILABLE!!</td>
+    </tr>
+   </table> 
+</div>

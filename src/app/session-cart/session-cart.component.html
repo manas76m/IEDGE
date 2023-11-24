@@ -1,0 +1,46 @@
+//<br>
+<br>
+<br>
+
+<div class="cart-details" *ngIf="enableCart()">
+
+    <table style="width: 100%"
+    *ngIf="getCartItems().length ==0" >
+      <tr>
+       <th>CART IS EMPTY!!</th>
+      </tr>
+    </table>
+
+    <table style="width: 100%"
+    *ngIf="getCartItems().length >=1" >
+      <tr>
+        <td style="text-align: center;"><input type=text [(ngModel)]="customerName" placeholder="Customer Name" style="width:150px"/></td>
+        <td style="text-align: center;"><input type="number" [(ngModel)]="customerNumber" max="10" min="10"placeholder="Number" style="width:100px"/></td>
+      </tr>
+    </table>
+   
+    <table *ngIf="getCartItems().length >=1" style="width: 100%">
+     
+        <tr>
+            <th class="trc">Barcode</th>
+            <th class="trc">Item Name</th>
+            <th class="trc">Item Wt.</th>
+            <th class="trc">Price</th>
+            <th class="trc">##</th>          
+          </tr>
+          <tr *ngFor="let item of getCartItems(); let i = index">
+            <td class="trc">{{item.BARCODE}}</td>
+            <td class="trc">{{item.ITEM_NAME}}</td>
+            <td class="trr">{{item.NETWT}}</td>
+            <td class="trr">{{item.GROSS_VALUE}}</td>
+            <td class="trc"><img (click)="removeFromCart(i)" src="../../assets/images/marker-1.1s-200px.svg" style="height:30px"></td>
+          </tr>
+    </table>
+    <table style="float: right; margin-top: 8PX;"  >
+      <tr>
+        <th style="height: 20PX; font-family: Verdana, Geneva, Tahoma, sans-serif;" *ngIf="getCartItems().length >=1" (click)="orderCartSubmit(customerName,customerNumber,getCartItems())">Submit</th>
+        <th style="height: 20PX; font-family: Verdana, Geneva, Tahoma, sans-serif;" (click)="navigateToCart()">Back</th>
+      </tr>
+    </table>
+  </div>
+  

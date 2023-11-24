@@ -1,0 +1,43 @@
+.cart-details{
+ 
+    top:0px;
+    z-index: 3;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    background-color: #212121ed;
+    color: white;
+    }
+    .cart-details table, th, td {
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        border:1px solid rgb(222, 220, 220) !important;
+        font-family: Times, Times New Roman, serif; 
+        padding: 5px;
+        font-size: 13px;
+       
+      }
+.cart-details th{
+        background-color: white;
+        color: black;
+        text-align: center;
+      }
+      .cart-details td{
+        color: white;
+        text-align: center;
+      }
+      table{
+        width: 100%;
+        border-collapse: collapse;
+    }
+      .trr{
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: right;
+        }
+        .trl{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: left;
+        }
+        .trc{
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                text-align: center;
+            }

@@ -1,0 +1,48 @@
+<div class="header-nav">
+  <div class="header-nav-container">
+      <img
+        src="../assets/images/logo.png"
+       class="logo"  routerLink="/Home" this.menuDropdown = false;/>
+      <div *ngIf="company_name_display" (click)="logOut()" routerLink="/" style="font-size: 15px;font-weight: bold;align-self: center;margin-top: 3px;"    routerLink="/login">IEDGE <span 
+        style="font-size: 11px;font-weight:100;">{{ver}}</span>
+        <div style="font-size: 12px;font-weight: 300; border-top:1px solid rgb(255, 187, 0);padding: 2px;margin-top: 5px;">INFISOFT SOLUTIONS</div>
+      </div>
+    
+   
+      <div *ngIf="!company_name_display" (click)="logOut()" routerLink="/" style="font-size:15px;font-weight: bold;align-self: center;margin-top: 3px;">{{company_name}} 
+        <span style="font-size: 11px; font-weight: 100;">{{ver}}</span>
+        <div style="font-size: 12px;font-weight: 300; border-top:1px solid rgb(255, 187, 0);padding: 2px;margin-top: 5px;">{{username}}</div>
+      </div>
+          
+      <div style="flex: 1 1 auto;"></div>
+      <!--<app-cart-bucket *ngIf="enableCart()"></app-cart-bucket>-->>
+      <div style="align-self: center;" (click)="showMenu()"> <img
+        src="../assets/images/hamburger-2-svgrepo-com.svg"
+        style="width:30px;align-self: center; color: white;margin-right: 10px; margin-top: 10px;"
+      />
+    </div>
+    
+  </div>
+
+  <div class="menu-dropdown" *ngIf="menuDropdown" (click)="showMenu()">
+    <div *ngIf="checkForAccessToken()" routerLink="/codescannerv2"> Ledger Management</div>
+    <div *ngIf="checkForAccessToken()" routerLink="/Stoclist">Stock Management</div>
+    <div *ngIf="checkForAccessToken()" routerLink="/metal-config">Purchase Register</div>
+    <div *ngIf="checkForAccessToken()" routerLink="/Salesummery">Sale Register</div>
+    <div *ngIf="checkForAccessToken()" routerLink="/cart">Cart History</div>
+    <div *ngIf="checkForAccessToken()" routerLink="/Staffmgnt">Staff Management</div>
+    <div  routerLink="/Techsupport">Technical Support</div>
+    <div *ngIf="checkForAccessToken()" (click)="logOut()" routerLink="/">Logout</div>
+  </div>
+  
+</div>
+
+
+<div [@routeAnimations]="o && o.activatedRouteData 
+        && o.activatedRouteData['animation']">
+      <router-outlet #o="outlet" ></router-outlet>
+  </div>
+
+
+
+

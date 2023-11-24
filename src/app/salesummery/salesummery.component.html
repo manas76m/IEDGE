@@ -1,0 +1,211 @@
+<div *ngIf = "frame1" class="dateholder">
+    <mat-form-field >
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <input matStartDate formControlName="start" placeholder="Start date">
+          <input matEndDate formControlName="end" placeholder="End date">
+        </mat-date-range-input>
+        <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker ></mat-date-range-picker>
+      
+        <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+        <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+       
+      </mat-form-field>
+      <button (click)="fetchDateInput()" class="custom-button">Submit</button>
+</div>
+<div *ngIf="frame1" style="padding: 6px; background-color: darkslategrey; color: white; font-family: 'Trebuchet MS'; font-weight: bold; text-align: center;">SALE SUMMARY</div>
+
+<!-- <p >Selected range: {{range.value | json}}</p> -->
+    <div style="padding-top: 10px;" *ngIf="frame1">
+    <table  *ngFor="let salesSummery of frameOneData">  
+        <tr> 
+        <table>
+            <tr>
+                <th class="thm" style="width: 50%;">No of Invoices</th>
+                <th class="thm" style="width: 50%;">Invoice Amount</th>
+            </tr>
+            <tr>
+                <td class="trmb">{{salesSummery.count}}</td>
+                <td class="trmb">{{salesSummery.INVOICE_AMT}}</td>
+            </tr>
+        </table>   
+        </tr>
+        <tr>
+        <table>
+            <TR style="height: 10px;">
+            </TR>
+            <tr>
+                <th class="thm2" style="width: 50%;">18% GST</th>
+                <th class="thm2" style="width: 50%;">28% GST</th>
+            </tr>
+            <tr>
+                <td class="trm">{{salesSummery.T18P_TAXAM}}</td>
+                <td class="trm">{{salesSummery.T28P_TAXAM}}</td>        
+            </tr>
+            <tr>
+                <td class="trm">{{salesSummery.T18P_GSTAM}}</td>
+                <td class="trm">{{salesSummery.T28P_GSTAM}}</td>        
+            </tr>
+        </table>    
+        </tr>
+<tr>
+<table>
+    <TR style="height: 10px;">
+    </TR>
+    <tr>
+        <th class="thm2" style="width: 50%;">Taxable Amount</th>
+        <th class="thm2" style="width: 50%;">GST Amount</th>
+    </tr>
+    <tr>
+        <td class="trm">{{salesSummery.TAXABLE_AMT}}</td> 
+        <td class="trm">{{salesSummery.GST}}</td>
+    </tr>
+</table>
+</tr>   
+        
+        
+    </table>
+    <div *ngIf="frame1" style="font-style: italic; font-size: 15px; text-align: center;"><p (click)="FrameDisplayHandler('Frame2')"> View Invoice List</p></div>
+  </div>
+
+  <div>
+    <table style="margin-top: 1px;" *ngIf="!Invoice_List">
+        <div class="dateholder">
+            <mat-form-field >
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                  <input matStartDate formControlName="start" placeholder="Start date">
+                  <input matEndDate formControlName="end" placeholder="End date">
+                </mat-date-range-input>
+                <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker ></mat-date-range-picker>
+              
+                <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+                <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+               
+              </mat-form-field>
+              <button (click)="fetchDateInput()" class="custom-button">Submit</button>
+        </div>
+        <tr>
+            <td  style="text-align: center; font-family: 'Trebuchet MS';">No Records for Selected Date</td>
+        </tr>
+    </table>
+    <div *ngIf="frame2" style="padding: 6px; background-color: darkslategrey; color: white; font-family: 'Trebuchet MS'; font-weight: bold; text-align: center; margin-top: 65px;"><span >INVOICE LIST</span>
+    </div>  
+    <div *ngIf="frame2" style="padding: 6px; font-family: 'Trebuchet MS'; text-align: center; margin-top: 1PX;">
+        <span style="text-align: center;" (click)="FrameDisplayHandler('Frame1')">Back to Summary </span>   
+        </div> 
+    <table *ngIf="Invoice_List && frame2">
+        <thead>
+            <tr>
+                <th class="thl">Invoice Date</th>
+                <th class="thl">Invoice No.</th>
+                <th class="thl">Customer Name</th>
+                <th class="thr">Invoice Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let summeryDetails of Invoice_List" (click)="InvoiceDetail(summeryDetails.VCH_NO)">
+                <td class="trl">{{summeryDetails.INV_DATE}}</td>
+                <td class="trl" >{{summeryDetails.VCH_NO}}</td>
+                <td class="trl">{{summeryDetails.LEDGER_NAME}}</td>
+                <td class="trr">{{summeryDetails.INVOICE_AMT}}</td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+        <br>
+        <br>
+        <br>
+    </table>
+
+    <div *ngIf="frame3">
+        <div style="padding: 6px; background-color: darkslategrey; color: white; font-family: 'Trebuchet MS'; font-weight: bold; text-align: center; margin-top: 65px;"><span >INVOICE DETAIL</span>
+        </div>  
+        <div style="padding: 6px; font-family: 'Trebuchet MS'; text-align: center; margin-top: 1PX;">
+            <span (click)="FrameDisplayHandler('Frame2')">Back to Invoice List </span>   
+            </div> 
+        <table  *ngFor="let salesSummery of frameTwoData">   
+                <tr> 
+                <table>
+                    <tr>
+                        <th class="thm" style="width: 50%;">Invoice No.</th>
+                        <th class="thm" style="width: 50%;">Invoive Amount</th>
+                    </tr>
+                    <tr>
+                        <td class="trmb">{{salesSummery.VCHNO}}</td>
+                        <td class="trmb">{{salesSummery.INVOICE_AMT}}</td>
+                    </tr>
+                </table>   
+                </tr>
+                <tr>
+                <table>
+                    <TR style="height: 10px;">
+                    </TR>
+                    <tr>
+                        <th class="thm2" style="width: 100%;">CUSTOMER NAME</th>
+                     </tr>
+                    <tr>
+                        <td class="trm">{{salesSummery.LEDGER_NAME}}</td>
+                    </tr>
+                    <tr>
+                        <td class="trm">{{salesSummery.PARTY_CITY}}</td>
+                    </tr>
+                    <tr>
+                        <td class="trm">{{salesSummery.GSTIN}}</td>
+                    </tr>
+                </table>    
+                </tr>
+                <tr>
+                    <table>
+                        <TR style="height: 10px;">
+                        </TR>
+                        <tr>
+                            <th class="thm2" style="width: 50%;">18% GST</th>
+                            <th class="thm2" style="width: 50%;">28% GST</th>
+                        </tr>
+                        <tr>
+                            <td class="trm">{{salesSummery.T18P_TAXAM}}</td>
+                            <td class="trm">{{salesSummery.T28P_TAXAM}}</td>        
+                        </tr>
+                        <tr>
+                            <td class="trm">{{salesSummery.T18P_GSTAM}}</td>
+                            <td class="trm">{{salesSummery.T28P_GSTAM}}</td>        
+                        </tr>
+                    </table>    
+                </tr>
+                <tr>
+        <table>
+            <TR style="height: 10px;">
+            </TR>
+            <tr>
+                <th class="thm2" style="width: 50%;">Taxable Amount</th>
+                <th class="thm2" style="width: 50%;">GST Amount</th>
+            </tr>
+            <tr>
+                <td class="trm">{{salesSummery.TAXABLE_AMT}}</td> 
+                <td class="trm">{{salesSummery.GST}}</td>
+            </tr>
+        </table>
+        </tr>   
+        <tr>
+            <table>
+                <TR style="height: 10px;">
+                </TR>
+                <tr>
+                    <th class="thm2" style="width: 50%;">SALESMAN NAME</th>
+                    <th class="thm2" style="width: 50%;">MKT STAFF NAME</th>
+                </tr>
+                <tr>
+                    <td class="trm">{{salesSummery.SM_NAME}}</td>
+                    <td class="trm">{{salesSummery.MS_NAME}}</td>
+                </tr>
+            </table>
+        </tr>
+    </table>
+        <p style="text-align: center; font-family: 'Trebuchet MS'; font-size: 14px; font-style: italic;" *ngFor="let x of frameTwoData"><a [href]="x.BILL_URL">View Bill PDF</a></p>
+        </div>
+  </div>
+ 

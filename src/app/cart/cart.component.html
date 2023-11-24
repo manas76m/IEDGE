@@ -1,0 +1,48 @@
+<div 
+*ngIf = "loadingProcess"
+class="loaderScreen">
+    <div style="height:35%"></div>
+    <div class="lds-ripple"><div></div><div></div></div>
+    <p>loading ...</p>
+</div>
+
+
+
+<div class="metal-rate-body-div">
+
+ 
+    <div  *ngIf = "!loadingProcess">
+        <input style="width: 80%;padding:5px; margin:10px; text-align: center;" type="text" placeholder="SEARCH CHL NO" [(ngModel)]="searchText" (keyup)="filterResults(searchText)">
+        <br>
+    </div>
+    <!-- <input type="range" class="form-range" min="{{rangeValues[0]}}" max="{{rangeValues[1]}}" step="0.5"  (input)="getWtminVal($event.target)"> -->
+    <!-- <button (click)="ApplyFilters()">X</button> -->
+    <span style="font-size: 16px;margin:3px; font-family: Verdana, Geneva, Tahoma, sans-serif;">TOTAL CHL NO: {{resultCount}}</span>
+    <div *ngIf = "!loadingProcess" class="table-header">
+        <span >CART HISTORY LIST</span> 
+    </div>
+
+   <table *ngIf = "!loadingProcess && !error_screen">
+    <tr style="height: 35px; font-size: 10px;">
+        <td style="background-color: antiquewhite; color: black;" class="trl">NO</td>
+        <td style="background-color: antiquewhite; color: black;" class="trl">CUST NAME</td>
+        <td style="background-color: antiquewhite; color: black;" class="trc">PCS</td>
+        <td style="background-color: antiquewhite; color: black;">WT</td>
+        <td style="background-color: antiquewhite; color: black;">AMOUNT</td>
+       
+    </tr>
+    <tr style="height: 35px;  font-size: 8px;" *ngFor="let cartDetails of filteredLocationList">
+        <td class="trl">{{cartDetails.CHL_NO}}</td>
+        <td class="trl">{{cartDetails.CUST_NAME}}</td>
+        <td class="trc">{{cartDetails.count}}</td>
+        <td>{{cartDetails.NET_WT}}</td>
+        <td>{{cartDetails.totalPrice}}</td>
+       
+    </tr>
+   </table>
+   <table *ngIf="error_screen">
+    <tr>
+        <td style="text-align: center;">NO DATA AVAILABLE!!</td>
+    </tr>
+   </table>
+</div>
